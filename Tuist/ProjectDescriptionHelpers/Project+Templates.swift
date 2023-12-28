@@ -154,7 +154,7 @@ public extension Project {
         
         // MARK: - Static Framework
         
-        if targets.contains(.framework) {
+        if targets.contains(.staticFramework) {
             projectTargets.append(
                 makeTarget(
                     name: name,
@@ -186,7 +186,7 @@ public extension Project {
                     deploymentTargets: deploymentTargets,
                     infoPlist: .default,
                     sources: ["Demo/Sources/**"],
-                    resources: [.glob(pattern: "Demo/Resources/**", excluding: [])],
+                    resources: hasResources ? [.glob(pattern: "Demo/Resources/**", excluding: [])] : [],
                     dependencies: [],
                     settings: .settings(base: baseSettings, configurations: [])
                 )
@@ -206,9 +206,7 @@ public extension Project {
                     infoPlist: .default,
                     sources: ["UITests/Sources/**"],
                     resources: nil,
-                    dependencies: [
-                        .xctest
-                    ],
+                    dependencies: [],
                     settings: .settings(base: baseSettings, configurations: [])
                 )
             )
@@ -227,9 +225,7 @@ public extension Project {
                     infoPlist: .default,
                     sources: ["UnitTests/Sources/**"],
                     resources: nil,
-                    dependencies: [
-                        .xctest
-                    ],
+                    dependencies: [],
                     settings: .settings(base: baseSettings, configurations: [])
                 )
             )

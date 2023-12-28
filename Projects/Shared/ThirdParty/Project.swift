@@ -19,6 +19,5 @@ let project = Project.makeModule(
         TargetDependency.Alamofire,
         TargetDependency.IQKeyboardManagerSwift,
         TargetDependency.SnapKit
-    ],
-    hasResources: false
+    ]
 )

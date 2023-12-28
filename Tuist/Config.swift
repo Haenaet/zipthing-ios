@@ -12,7 +12,6 @@ let config = Config(
         "14.3.1",
         "15.1"
     ],
-    cloud: .cloud(projectId: ""),
     swiftVersion: "5.9",
     plugins: [
         .local(path: .relativeToManifest("../../Plugins/ConfigurationPlugin")),
