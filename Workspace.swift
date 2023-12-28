@@ -7,12 +7,17 @@
 
 import ProjectDescription
 import ProjectDescriptionHelpers
+import ConfigurationPlugin
 import EnvironmentPlugin
 
 
 let workspace = Workspace(
     name: "Zipthing",
-    projects: [],
+    projects: [
+        Root.allCases.map(\.path),
+        Features.allCases.map(\.path),
+        Shared.allCases.map(\.path)
+    ].flatMap { $0 },
     schemes: [],
     fileHeaderTemplate: nil,
     additionalFiles: [],

@@ -7,8 +7,8 @@
 
 import ProjectDescription
 
-public extension TargetDependency {
-    static let Alamofire = TargetDependency.external(name: "Alamofire")
-    static let IQKeyboardManager = TargetDependency.external(name: "IQKeyboardManager")
-    static let SnapKit = TargetDependency.external(name: "SnapKit")
+extension TargetDependency {
+    public static let Alamofire = TargetDependency.external(name: "Alamofire")
+    public static let IQKeyboardManagerSwift = TargetDependency.external(name: "IQKeyboardManagerSwift")
+    public static let SnapKit = TargetDependency.external(name: "SnapKit")
 }
