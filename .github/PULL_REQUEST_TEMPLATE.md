@@ -22,7 +22,6 @@
   
 ## 스크린샷
 - 스크린샷의 크기는 width: 294 크기로 지정합니다.
-<img src = "https://github.com/Haenaet/zipthing-ios/assets/119715960/f6c11f88-cd79-4530-8f5f-d630e74f4604" width="294">
 
 ## 참고 자료
 - [링크1]()
