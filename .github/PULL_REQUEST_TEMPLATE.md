@@ -1,22 +1,22 @@
 ## PR Type
-- [ ] Create
-- [ ] Chore
 - [ ] Design
-- [ ] Docs
-- [ ] Feat
-- [ ] Fix
-- [ ] Rename
-- [ ] Remove
+- [ ] Documentation
+- [ ] Feature
 - [ ] Style
+- [ ] Fix
 - [ ] Test
-## 작업 동기는 무엇인가요?
-- 이곳을 수정해서 작업 동기를 입력해주세요.
-## 작업 내용은 무엇인가요?
-- 이곳을 수정해서 작업한 내용을 입력해주세요.
+## 작업 내용
+- ex. [커밋 링크1] 헤더 뷰 표시 조건 수정
+- ex. [커밋 링크2] HeaderView.swift 코딩 스타일 가이드라인에 맞추어 수정
+## 작업 사유
+- ex. @playhong16님의 코딩 스타일 가이드라인을 준수해달라는 의견
+- ex. 헤더 뷰가 간헐적으로 기본 상태일때도 레이아웃에 나타나는 문제를 해결
+## 세부 사항
+- ex. [커밋 링크1] 헤더 뷰의 표시 조건이 올바르게 작동되게끔 수정하였으나 더 좋은 방법이 있다면 확인 후 코멘트 작성 부탁드리겠습니다.
+## 테스트 내용
+- 헤더 뷰가 간헐적으로 나타나는지 별도의 UITest 진행
 ## 스크린샷
-<img src = "https://github.com/Haenaet/zipthing-ios/assets/119715960/f6c11f88-cd79-4530-8f5f-d630e74f4604" width="200">
-
-
-
-## 테스트를 위한 체크리스트
-- [ ] 예시)버튼을 눌렀을 때, 상세 페이지로 전환되는지 확인
+- 스크린샷의 크기는 width: 294 크기로 지정합니다.
+<img src = "https://github.com/Haenaet/zipthing-ios/assets/119715960/f6c11f88-cd79-4530-8f5f-d630e74f4604" width="294">
+## 참고 자료
+- [링크1]()
