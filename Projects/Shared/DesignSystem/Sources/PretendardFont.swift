@@ -9,7 +9,7 @@
 import UIKit
 
 public enum PretendardFont {
-    static let familyName = "Pretendard"
+    public static let familyName = "Pretendard"
     
     public enum Weight: String {
         case black = "Black"

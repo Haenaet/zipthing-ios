@@ -9,7 +9,7 @@
 import UIKit
 
 extension UINavigationController {
-    func setBarAppearance() {
+    public func setBarAppearance() {
         let appearance: UINavigationBarAppearance = {
             let appearance = UINavigationBarAppearance()
             // 네비게이션 바의 배경색 설정
