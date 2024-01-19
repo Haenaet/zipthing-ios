@@ -9,5 +9,9 @@
 import UIKit
 
 extension UIFont {
-    
+    public func pretendard(ofSize: CGFloat, weight: PretendardFont.Weight) -> UIFont {
+        let fontName = "\(PretendardFont.familyName)-\(weight.rawValue)"
+        let basicFont = UIFont.systemFont(ofSize: ofSize)
+        return UIFont(name: fontName, size: ofSize) ?? basicFont
+    }
 }
