@@ -1,5 +1,5 @@
 //
-//  Extension+Indicator3.swift
+//  ActivityIndicator.swift
 //  DesignSystem
 //
 //  Created by 박성원 on 1/19/24.
@@ -26,24 +26,24 @@ public class ActivityIndicator {
         self.backgroundView = backgroundView
     }
     
-    func showActivityIndicator(text: String) {
+    func showActivityIndicator(text: String, backgroundColor: UIColor, indicatatorColor: UIColor, textColor: UIColor) {
         activityIndicatorView.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 100)
         activityIndicatorView.center = CGPoint(x: self.backgroundView.frame.size.width / 2.0, y: (self.backgroundView.frame.size.height) / 2.0)
         activityIndicatorView.layer.cornerRadius = 16
-        activityIndicatorView.backgroundColor = .lightGray // ❗️색바꾸기
+        activityIndicatorView.backgroundColor = backgroundColor
         backgroundView.addSubview(activityIndicatorView)
         
         
         activityIndicator.center = CGPoint(x: activityIndicatorView.frame.size.width / 2.0, y: (activityIndicatorView.frame.size.height) / 2.0)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = .large
-        activityIndicator.color = .darkGray // ❗️색바꾸기
+        activityIndicator.color = indicatatorColor
         activityIndicatorView.addSubview(activityIndicator)
         
         
-        indicatorLabel.textColor = .darkGray // ❗️색바꾸기
+        indicatorLabel.textColor = textColor
         indicatorLabel.text = text
-        indicatorLabel.font = UIFont(name: "Light", size: 12) // ❗️글자 크기 바꾸기
+        indicatorLabel.font = UIFont(name: "Light", size: 12)
         indicatorLabel.sizeToFit()
         indicatorLabel.center = CGPoint(x: activityIndicator.center.x, y: activityIndicator.center.y + 32)
         activityIndicatorView.addSubview(indicatorLabel)
