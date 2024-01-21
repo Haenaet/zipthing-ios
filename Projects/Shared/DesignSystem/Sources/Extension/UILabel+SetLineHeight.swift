@@ -1,5 +1,5 @@
 //
-//  Extension+UILabel.swift
+//  UILabel+SetLineHeight.swift
 //  DesignSystem
 //
 //  Created by se-ryeong on 1/19/24.
