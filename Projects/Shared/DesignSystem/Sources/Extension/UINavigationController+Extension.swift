@@ -1,5 +1,5 @@
 //
-//  Extension+UINavigationController.swift
+// UINavigationController+Extension.swift
 //  DesignSystem
 //
 //  Created by playhong on 2024/01/18.

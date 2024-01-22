@@ -1,5 +1,5 @@
 //
-//  Extension+UIView.swift
+//  UIView+Extension.swift
 //  DesignSystem
 //
 //  Created by playhong on 2024/01/18.

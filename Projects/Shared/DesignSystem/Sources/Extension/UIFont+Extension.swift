@@ -1,5 +1,5 @@
 //
-//  Extension+UIFont.swift
+//  UIFont+Extension.swift
 //  DesignSystem
 //
 //  Created by playhong on 2024/01/18.
