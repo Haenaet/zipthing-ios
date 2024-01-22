@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-open class BaseAlertController: BaseUIViewController {
+class BaseAlertController: BaseUIViewController {
     private lazy var alertView: UIStackView = {
         let view = UIStackView()
         view.backgroundColor = .systemGray2
