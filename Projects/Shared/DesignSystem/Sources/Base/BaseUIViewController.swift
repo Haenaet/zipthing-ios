@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 open class BaseUIViewController: UIViewController {
     open override func viewDidLoad() {
@@ -18,6 +19,7 @@ open class BaseUIViewController: UIViewController {
         setDelegate()
         addTarget()
         deinitialize()
+        setIQKeyboardManagerEnable()
     }
     
     open func setUI() {}
@@ -32,5 +34,13 @@ open class BaseUIViewController: UIViewController {
     
     deinit {
         debugPrint("\(self) is deinitialized. 🌈")
+    }
+}
+
+extension BaseUIViewController {
+    func setIQKeyboardManagerEnable() {
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.enableAutoToolbar = false
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
     }
 }
