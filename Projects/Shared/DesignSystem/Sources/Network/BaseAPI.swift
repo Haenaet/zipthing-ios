@@ -9,6 +9,9 @@
 import Foundation
 import Alamofire
 
+/// `NetworkRequestable`프로토콜은 `Alamofire`에서 제공하는 `URLRequestConvertible`프로토콜을 준수하는 프로토콜이며,
+/// API 구현 시 해당 프로토콜을 채택해야합니다.
+
 public protocol BaseAPI: URLRequestConvertible {
     var baseURL: URL { get }
     var path: String { get }

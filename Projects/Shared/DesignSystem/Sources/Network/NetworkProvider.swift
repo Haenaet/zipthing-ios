@@ -9,8 +9,15 @@
 import Foundation
 import Alamofire
 
+/// `NetworkProvider`는 네트워크 요청을 제공하는 열거형입니다.
+
 public enum NetworkProvider {
-    public static func request<T: Decodable>(api: BaseAPI, to responseType: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) {
+    /// 네트워크 요청을 위한 메서드
+    /// - Parameters:
+    ///   - api: 네트워크 요청을 위한 API입니다.
+    ///   - to: 응답 결과로 전달받는 JSON 데이터를 디코딩 할 타입입니다.
+    ///   - completion: 응답 결과에 대한 완료 핸들러입니다.
+    public static func request<T: Decodable>(api: NetworkRequestable, to responseType: T.Type, completion: @escaping (Result<T, NetworkError>) -> Void) {
         AF.request(api).responseDecodable(of: responseType) { response in
             switch response.result {
             case .success(let data):
