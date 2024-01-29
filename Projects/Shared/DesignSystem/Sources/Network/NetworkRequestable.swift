@@ -28,17 +28,6 @@ extension NetworkRequestable {
         return url
     }
     
-    public var headers: HTTPHeaders {
-        return [
-            "accept": "application/json",
-            "Content-Type": "application/json"
-        ]
-    }
-    
-    public var encoding: ParameterEncoding {
-        return URLEncoding.default
-    }
-    
     public func asURLRequest() throws -> URLRequest {
         let url = baseURL.appendingPathComponent(path)
         var urlRequest = URLRequest(url: url)
