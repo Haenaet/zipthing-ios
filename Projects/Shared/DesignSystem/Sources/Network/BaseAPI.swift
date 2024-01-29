@@ -33,10 +33,7 @@ extension BaseAPI {
     }
     
     public var encoding: ParameterEncoding {
-        switch self {
-        default:
-            return JSONEncoding.default
-        }
+        return URLEncoding.default
     }
     
     public func asURLRequest() throws -> URLRequest {
@@ -47,7 +44,6 @@ extension BaseAPI {
         urlRequest.headers = headers
         
         if let parameters = parameters {
-            let encoding = JSONEncoding.default
             return try encoding.encode(urlRequest, with: parameters)
         }
         
