@@ -1,5 +1,5 @@
 //
-//  BaseAPI.swift
+//  NetworkRequestable.swift
 //  DesignSystem
 //
 //  Created by playhong on 2024/01/28.
@@ -12,7 +12,7 @@ import Alamofire
 /// `NetworkRequestable`프로토콜은 `Alamofire`에서 제공하는 `URLRequestConvertible`프로토콜을 준수하는 프로토콜이며,
 /// API 구현 시 해당 프로토콜을 채택해야합니다.
 
-public protocol BaseAPI: URLRequestConvertible {
+public protocol NetworkRequestable: URLRequestConvertible {
     var baseURL: URL { get }
     var path: String { get }
     var method: HTTPMethod { get }
@@ -21,7 +21,7 @@ public protocol BaseAPI: URLRequestConvertible {
     var encoding: ParameterEncoding { get }
 }
 
-extension BaseAPI {
+extension NetworkRequestable {
     public var baseURL: URL {
         // Note: - 임시 URL 넣었습니다.
         guard let url = URL(string: "zipthing.com") else { fatalError() }
