@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FamilyFeature
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -16,7 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         willConnectTo session: UISceneSession,
         options connectionOptions: UIScene.ConnectionOptions
     ) {
-        guard let _ = (scene as? UIWindowScene) else { return }
+//        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+               window = UIWindow(windowScene: windowScene)
+               window?.makeKeyAndVisible()
+               window?.rootViewController = FamilyFeatureViewController()
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {}

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 public extension UIViewController {
     func singleActionAlert(title: String?, message: String?, actionTitle: String, handler: (()->Void)?) {
