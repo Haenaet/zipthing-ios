@@ -100,16 +100,25 @@ class FamilyInfoEditViewController: BaseUIViewController {
         return scrollView
     }()
     
-    private var collectionView: UICollectionView = {
-        let collectionView = UICollectionView()
+    private lazy var collectionView: UICollectionView = {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
+        view.register(CharacterCell.self, forCellWithReuseIdentifier: CharacterCell.identifier)
+        view.backgroundColor = .clear
+        view.showsHorizontalScrollIndicator = false
         
-        return collectionView
+        return view
     }()
     
     override func viewDidLoad() {
-        view.backgroundColor = DesignSystemAsset.yellow050.color
+        view.backgroundColor = DesignSystemAsset.Colors.yellow050.color
         setUI()
         setLayout()
+        setDelegate()
+    }
+    
+    override func setDelegate() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
     }
     
     override func setUI() {
@@ -121,6 +130,8 @@ class FamilyInfoEditViewController: BaseUIViewController {
         scrollView.snp.makeConstraints {
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
+            $0.width.equalTo(view.frame.width)
+//            $0.height.equalTo(view.frame.height)
         }
         
         cancelButton.snp.makeConstraints {
@@ -175,5 +186,33 @@ class FamilyInfoEditViewController: BaseUIViewController {
             $0.top.equalTo(datePicker.snp.bottom).offset(28)
             $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
         }
+        
+        collectionView.snp.makeConstraints {
+            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.top.equalTo(myCharacterLabel.snp.bottom).offset(7)
+            $0.height.equalTo(50)
+        }
+    }
+}
+
+extension FamilyInfoEditViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCell.identifier, for: indexPath) as? CharacterCell
+        else { return .init() }
+        
+        return cell
+    }
+}
+
+extension FamilyInfoEditViewController {
+    private func createLayout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        
+        return layout
     }
 }
