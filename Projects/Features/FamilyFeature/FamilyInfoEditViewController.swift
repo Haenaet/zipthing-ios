@@ -100,6 +100,12 @@ class FamilyInfoEditViewController: BaseUIViewController {
         return scrollView
     }()
     
+    private var collectionView: UICollectionView = {
+        let collectionView = UICollectionView()
+        
+        return collectionView
+    }()
+    
     override func viewDidLoad() {
         view.backgroundColor = DesignSystemAsset.yellow050.color
         setUI()
@@ -108,7 +114,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     
     override func setUI() {
         view.addSubview(scrollView)
-        scrollView.addSubviews(cancelButton, editButton, myInformationLabel, nicknameLabel, nicknameTextField, phoneNumberLabel, phoneNumberTextField, birthdayLabel, datePicker, myCharacterLabel)
+        scrollView.addSubviews(cancelButton, editButton, myInformationLabel, nicknameLabel, nicknameTextField, phoneNumberLabel, phoneNumberTextField, birthdayLabel, datePicker, myCharacterLabel, collectionView)
     }
     
     override func setLayout() {
