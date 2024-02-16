@@ -9,7 +9,38 @@
 import UIKit
 import DesignSystem
 
+public enum CharaterType: CaseIterable {
+    case egg
+    case fish
+    case star
+    case sun
+    case tomato
+    case tree
+    
+    var image: UIImage {
+        switch self {
+            
+        case .egg:
+            return DesignSystemAsset.Images.egg.image
+        case .fish:
+            return DesignSystemAsset.Images.fish.image
+        case .star:
+            return DesignSystemAsset.Images.star.image
+        case .sun:
+            return DesignSystemAsset.Images.sun.image
+        case .tomato:
+            return DesignSystemAsset.Images.tomato.image
+        case .tree:
+            return DesignSystemAsset.Images.tree.image
+        }
+    }
+}
+
 class FamilyInfoEditViewController: BaseUIViewController {
+
+//    var stringCharacters: [String] = ["tree", "egg", "fish", "star", "sun", "tomato"]
+    
+    var characters = CharaterType.allCases
     
     private lazy var cancelButton: UIButton = {
         let button = UIButton(type: .system)
@@ -29,7 +60,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
         return button
     }()
     
-    private var myInformationLabel: UILabel = {
+    private var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "내 정보"
         label.font = UIFont().pretendard(ofSize: 20, weight: .bold)
@@ -40,7 +71,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private var nicknameLabel: UILabel = {
         let label = UILabel()
         label.text = "별명"
-        label.font = UIFont().pretendard(ofSize: 16, weight: .extraBold)
+        label.font = UIFont().pretendard(ofSize: 16, weight: .bold)
         
         return label
     }()
@@ -56,7 +87,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private var phoneNumberLabel: UILabel = {
         let label = UILabel()
         label.text = "휴대폰 번호"
-        label.font = UIFont().pretendard(ofSize: 16, weight: .extraBold)
+        label.font = UIFont().pretendard(ofSize: 16, weight: .bold)
         
         return label
     }()
@@ -72,7 +103,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private var birthdayLabel: UILabel = {
         let label = UILabel()
         label.text = "생일"
-        label.font = UIFont().pretendard(ofSize: 16, weight: .extraBold)
+        label.font = UIFont().pretendard(ofSize: 16, weight: .bold)
         
         return label
     }()
@@ -88,7 +119,15 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private var myCharacterLabel: UILabel = {
         let label = UILabel()
         label.text = "내 캐릭터"
-        label.font = UIFont().pretendard(ofSize: 16, weight: .extraBold)
+        label.font = UIFont().pretendard(ofSize: 16, weight: .bold)
+        
+        return label
+    }()
+    
+    private var myInformationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "나의 정보"
+        label.font = UIFont().pretendard(ofSize: 16, weight: .bold)
         
         return label
     }()
@@ -123,7 +162,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     
     override func setUI() {
         view.addSubview(scrollView)
-        scrollView.addSubviews(cancelButton, editButton, myInformationLabel, nicknameLabel, nicknameTextField, phoneNumberLabel, phoneNumberTextField, birthdayLabel, datePicker, myCharacterLabel, collectionView)
+        scrollView.addSubviews(cancelButton, editButton, titleLabel, nicknameLabel, nicknameTextField, phoneNumberLabel, phoneNumberTextField, birthdayLabel, datePicker, myCharacterLabel, collectionView, myInformationLabel)
     }
     
     override func setLayout() {
@@ -144,7 +183,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(22)
         }
         
-        myInformationLabel.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.leading.equalTo(cancelButton.snp.trailing).offset(117)
             $0.trailing.equalTo(editButton.snp.leading).offset(-117)
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(22)
@@ -192,17 +231,32 @@ class FamilyInfoEditViewController: BaseUIViewController {
             $0.top.equalTo(myCharacterLabel.snp.bottom).offset(7)
             $0.height.equalTo(50)
         }
+        
+        myInformationLabel.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            $0.top.equalTo(collectionView.snp.bottom).offset(28)
+        }
     }
 }
 
 extension FamilyInfoEditViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return characters.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCell.identifier, for: indexPath) as? CharacterCell
-        else { return .init() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCell.identifier, for: indexPath) as? CharacterCell else {
+            return UICollectionViewCell()
+        }
+        
+        // String 1
+//        let characterName1 = stringCharacters[indexPath.item]
+//        let image = DesignSystemImages.Image(named: characterName1)
+//        cell.imageView.image = image
+//
+        // Enum 1
+        let image = characters[indexPath.row].image
+        cell.imageView.image = image
         
         return cell
     }

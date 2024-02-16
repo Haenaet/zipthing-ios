@@ -12,11 +12,11 @@ import DesignSystem
 
 class CharacterCell: UICollectionViewCell {
     static let identifier = "CharacterCell"
-    
-    private let imageView: UIImageView = {
+        
+    let imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
-        view.image = DesignSystemAsset.Images.tree.image
+//        view.image = DesignSystemAsset.Images.tree.image
         
         return view
     }()
@@ -26,7 +26,7 @@ class CharacterCell: UICollectionViewCell {
         
         addSubviews(imageView)
         setLayout()
-//        self.backgroundColor = .red
+        self.backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {
@@ -35,8 +35,6 @@ class CharacterCell: UICollectionViewCell {
     
     func setLayout() {
         imageView.snp.makeConstraints {
-//            $0.leading.trailing.equalToSuperview().inset(16)
-//            $0.top.equalToSuperview().offset(7)
             $0.edges.equalToSuperview()
         }
     }
