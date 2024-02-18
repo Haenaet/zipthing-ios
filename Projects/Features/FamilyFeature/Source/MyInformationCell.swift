@@ -16,7 +16,8 @@ class MyInformationCell: UITableViewCell {
         let view = UIView()
         view.layer.cornerRadius = 8
         view.layer.borderWidth = 1
-        view.layer.borderColor = DesignSystemAsset.Colors.wgray900.color.cgColor
+//        view.layer.borderColor = DesignSystemAsset.Colors.wgray900.color.cgColor
+        view.layer.borderColor = UIColor.gray.cgColor
         view.backgroundColor = .white
         
         return view
@@ -24,7 +25,7 @@ class MyInformationCell: UITableViewCell {
     
     let informationLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont().pretendard(ofSize: 20, weight: .bold)
+        label.font = ZipthingFont.title6
         
         return label
     }()
@@ -32,7 +33,7 @@ class MyInformationCell: UITableViewCell {
     let textCountLabel: UILabel = {
         let label = UILabel()
         label.text = "0/30자"
-        label.font = UIFont().pretendard(ofSize: 12, weight: .bold)
+        label.font = ZipthingFont.caption4
         
         return label
     }()
@@ -41,7 +42,7 @@ class MyInformationCell: UITableViewCell {
         let view = UITextView()
         view.textContainerInset = .zero
         view.backgroundColor = .red
-        view.font = UIFont().pretendard(ofSize: 16, weight: .bold)
+        view.font = ZipthingFont.body6
 
         
         return view

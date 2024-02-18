@@ -53,7 +53,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private lazy var cancelButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("취소", for: .normal)
-        button.titleLabel?.font = UIFont().pretendard(ofSize: 20, weight: .medium)
+        button.titleLabel?.font = ZipthingFont.title8
         button.tintColor = .black
         
         return button
@@ -62,7 +62,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private lazy var editButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("저장", for: .normal)
-        button.titleLabel?.font = UIFont().pretendard(ofSize: 20, weight: .extraBold)
+        button.titleLabel?.font = ZipthingFont.title6
         button.tintColor = .black
         
         return button
@@ -71,7 +71,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "내 정보"
-        label.font = UIFont().pretendard(ofSize: 20, weight: .bold)
+        label.font = ZipthingFont.title6
         
         return label
     }()
@@ -79,7 +79,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private var nicknameLabel: UILabel = {
         let label = UILabel()
         label.text = "별명"
-        label.font = UIFont().pretendard(ofSize: 16, weight: .bold)
+        label.font = ZipthingFont.body6
         
         return label
     }()
@@ -88,6 +88,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
         let textfield = UITextField()
         textfield.placeholder = "ex. 똥강아지"
         textfield.borderStyle = .roundedRect
+        textfield.font = ZipthingFont.title8
         
         return textfield
     }()
@@ -95,7 +96,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private var phoneNumberLabel: UILabel = {
         let label = UILabel()
         label.text = "휴대폰 번호"
-        label.font = UIFont().pretendard(ofSize: 16, weight: .bold)
+        label.font = ZipthingFont.body6
         
         return label
     }()
@@ -111,7 +112,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private var birthdayLabel: UILabel = {
         let label = UILabel()
         label.text = "생일"
-        label.font = UIFont().pretendard(ofSize: 16, weight: .bold)
+        label.font = ZipthingFont.body6
         
         return label
     }()
@@ -127,7 +128,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private var myCharacterLabel: UILabel = {
         let label = UILabel()
         label.text = "내 캐릭터"
-        label.font = UIFont().pretendard(ofSize: 16, weight: .bold)
+        label.font = ZipthingFont.body6
         
         return label
     }()
@@ -135,7 +136,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private var myInformationLabel: UILabel = {
         let label = UILabel()
         label.text = "나의 정보"
-        label.font = UIFont().pretendard(ofSize: 16, weight: .bold)
+        label.font = ZipthingFont.body6
         
         return label
     }()
