@@ -145,10 +145,10 @@ final class QuestionViewController: BaseUIViewController {
     }
     
     private func setSwipeGesture() {
-        let halfSwipeUp = UISwipeGestureRecognizer(target: self,
-                                               action: #selector(handleHalfSwipeUpGesture(recognizer:)))
-        halfSwipeUp.direction = .up
-        swipeStackView.addGestureRecognizer(halfSwipeUp)
+        let swipeUp = UISwipeGestureRecognizer(target: self,
+                                               action: #selector(swipeUpGesture(recognizer:)))
+        swipeUp.direction = .up
+        swipeStackView.addGestureRecognizer(swipeUp)
     }
     
     private func setChildViewController() {
@@ -157,6 +157,7 @@ final class QuestionViewController: BaseUIViewController {
         view.addConstraints(childViewController.view.constraints)
         childViewController.didMove(toParent: self)
         
+        childViewController.view.isUserInteractionEnabled = false
         childViewController.view.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.snp.bottom)
@@ -170,7 +171,9 @@ final class QuestionViewController: BaseUIViewController {
         print("지난 질문 버튼을 눌렀습니다.")
     }
     
-    @objc private func handleHalfSwipeUpGesture(recognizer: UISwipeGestureRecognizer) {
+    @objc private func swipeUpGesture(recognizer: UISwipeGestureRecognizer) {
+        childViewController.view.isUserInteractionEnabled = true
+        
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
             self.stackView.snp.updateConstraints {
@@ -222,6 +225,7 @@ extension QuestionViewController: AnswerViewControllerDelegate {
     }
     
     func swipeDownGesture() {
+        childViewController.view.isUserInteractionEnabled = false 
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
             self.stackView.snp.updateConstraints {
