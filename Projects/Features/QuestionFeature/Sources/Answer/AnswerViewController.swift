@@ -143,8 +143,10 @@ final class AnswerViewController: BaseUIViewController {
     }
     
     private func createTableHeaderView() {
-        let headerView = AnswerTableHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 37))
-        tableView.tableHeaderView = headerView
+        if answerList.isEmpty == false {
+            let headerView = AnswerTableHeaderView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 37))
+            tableView.tableHeaderView = headerView
+        }
     }
     
     override func setDelegate() {
