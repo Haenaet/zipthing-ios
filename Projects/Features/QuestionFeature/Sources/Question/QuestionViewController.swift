@@ -9,7 +9,7 @@
 import UIKit
 import DesignSystem
 
-final class QuestionViewController: BaseUIViewController {
+public final class QuestionViewController: BaseUIViewController {
     
     // MARK: - Components
     
@@ -101,13 +101,13 @@ final class QuestionViewController: BaseUIViewController {
     
     // MARK: - Life Cycle
 
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setChildViewController()
         setSwipeGesture()
     }
 
-    override func setUI() {
+    public override func setUI() {
         view.backgroundColor = DesignSystemAsset.yellow05.color
     }
     
@@ -116,7 +116,7 @@ final class QuestionViewController: BaseUIViewController {
                          swipeStackView)
     }
     
-    override func setLayout() {
+    public override func setLayout() {
         addSubviews()
 
         stackView.snp.makeConstraints {
@@ -140,7 +140,7 @@ final class QuestionViewController: BaseUIViewController {
         }
     }
 
-    override func setDelegate() {
+    public override func setDelegate() {
         childViewController.delegate = self
     }
     

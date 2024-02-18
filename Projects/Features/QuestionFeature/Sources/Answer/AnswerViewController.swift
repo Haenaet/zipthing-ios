@@ -17,7 +17,7 @@ protocol AnswerViewControllerDelegate: AnyObject {
     func swipeUpGesture()
 }
 
-final class AnswerViewController: BaseUIViewController {
+public final class AnswerViewController: BaseUIViewController {
     
     weak var delegate: AnswerViewControllerDelegate?
     private var answerList: [String] = ["1"]
@@ -65,18 +65,18 @@ final class AnswerViewController: BaseUIViewController {
         return iv
     }()
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         setSwipeGesture()
         setKeyboard()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         IQKeyboardManager.shared.enable = false
     }
     
-    override func setUI() {
+    public override func setUI() {
         view.backgroundColor = DesignSystemAsset.wgray03.color
         view.layer.cornerRadius = 12
         view.layer.borderColor = UIColor.black.cgColor
@@ -93,7 +93,7 @@ final class AnswerViewController: BaseUIViewController {
                          enterImageView)
     }
     
-    override func setLayout() {
+    public override func setLayout() {
         addSubviews()
         createEmptyView()
         grabBarView.snp.makeConstraints {
@@ -149,7 +149,7 @@ final class AnswerViewController: BaseUIViewController {
         }
     }
     
-    override func setDelegate() {
+    public override func setDelegate() {
         tableView.register(AnswerTableViewCell.self, forCellReuseIdentifier: AnswerTableViewCell.identifier)
         tableView.delegate = self
         tableView.dataSource = self
@@ -271,11 +271,11 @@ final class AnswerViewController: BaseUIViewController {
 // MARK: - Extension
 
 extension AnswerViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return answerList.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AnswerTableViewCell.identifier)
                 as? AnswerTableViewCell else { return .init() }
         return cell
@@ -283,18 +283,18 @@ extension AnswerViewController: UITableViewDataSource {
 }
 
 extension AnswerViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let height: CGFloat = 120
         let bottomInset: CGFloat = 10
         return height + bottomInset
     }
     
     /// Note: 테이블 뷰의 헤더뷰와 셀 사이의 Top 간격만 주고 싶어서 비어있는 뷰를 추가해서 높이를 줬음
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 20
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
     }
 }
