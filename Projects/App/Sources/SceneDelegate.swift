@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FamilyFeature
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
