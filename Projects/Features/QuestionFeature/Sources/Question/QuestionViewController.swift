@@ -109,7 +109,11 @@ final class QuestionViewController: BaseUIViewController {
 
     override func setUI() {
         view.backgroundColor = DesignSystemAsset.yellow05.color
-        
+    }
+    
+    private func addSubviews() {
+        view.addSubviews(stackView,
+                         swipeStackView)
     }
     
     override func setLayout() {
@@ -135,12 +139,7 @@ final class QuestionViewController: BaseUIViewController {
             $0.centerX.equalTo(view.snp.centerX)
         }
     }
-    
-    private func addSubviews() {
-        view.addSubviews(stackView,
-                         swipeStackView)
-    }
-    
+
     override func setDelegate() {
         childViewController.delegate = self
     }
@@ -185,8 +184,6 @@ final class QuestionViewController: BaseUIViewController {
             self.childViewController.updateGrapBarConstraints(detent: .medium)
             self.childViewController.updateKeyboardTextField(detent: .medium)
             self.view.layoutIfNeeded()
-        } completion: { _ in
-            print("일단 중간으로 올릴게!")
         }
     }
 }
@@ -194,7 +191,34 @@ final class QuestionViewController: BaseUIViewController {
 // MARK: - Extension
 
 extension QuestionViewController: AnswerViewControllerDelegate {
-    func updateParentView() {
+    func keyboardWillShow(_ keyboardHeight: CGFloat) {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            guard let self = self else { return }
+            self.stackView.snp.updateConstraints {
+                let updateHeight = keyboardHeight + 130
+                $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(-updateHeight)
+            }
+            
+            self.childViewController.view.snp.updateConstraints {
+                let updateHeight = (keyboardHeight / 3) + 594
+                $0.height.equalTo(updateHeight)
+            }
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func keyboardWillHide() {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            guard let self = self else { return }
+            self.stackView.snp.updateConstraints {
+                $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(-130)
+            }
+
+            self.childViewController.view.snp.updateConstraints {
+                $0.height.equalTo(594)
+            }
+            self.view.layoutIfNeeded()
+        }
     }
     
     func swipeDownGesture() {
@@ -211,8 +235,6 @@ extension QuestionViewController: AnswerViewControllerDelegate {
             self.childViewController.updateGrapBarConstraints(detent: .down)
             self.childViewController.updateKeyboardTextField(detent: .down)
             self.view.layoutIfNeeded()
-        } completion: { status in
-            print("일단 내려봐")
         }
     }
     
@@ -223,8 +245,6 @@ extension QuestionViewController: AnswerViewControllerDelegate {
             }
             
             self?.view.layoutIfNeeded()
-        } completion: { _ in
-            print("일단 끝까지 올릴게!")
         }
     }
 }
