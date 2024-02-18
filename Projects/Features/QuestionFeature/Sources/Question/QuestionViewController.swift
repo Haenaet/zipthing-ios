@@ -225,7 +225,8 @@ extension QuestionViewController: AnswerViewControllerDelegate {
     }
     
     func swipeDownGesture() {
-        childViewController.view.isUserInteractionEnabled = false 
+        childViewController.view.isUserInteractionEnabled = false
+        
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
             self.stackView.snp.updateConstraints {
