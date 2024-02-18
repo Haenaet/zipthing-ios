@@ -36,8 +36,8 @@ public enum CharaterType: CaseIterable {
     }
 }
 
-struct cellData {
-    var opened = Bool() // 셀이 접혔는지 펴졌는지 확인하기 위한 변수
+struct MyInformationCellData {
+    var isOpened = Bool() // 셀이 접혔는지 펴졌는지 확인하기 위한 변수
     var title = String()
     var content = String()
 }
@@ -48,7 +48,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     
     var characters = CharaterType.allCases
     
-    var tableViewData = [cellData]()
+    var tableViewData = [MyInformationCellData]()
     
     private lazy var cancelButton: UIButton = {
         let button = UIButton(type: .system)
@@ -171,15 +171,15 @@ class FamilyInfoEditViewController: BaseUIViewController {
         setLayout()
         setDelegate()
         
-        tableViewData = [cellData(opened: false, title: "나의 발사이즈", content: "어쩌구 저쩌구"),
-                         cellData(opened: false, title: "나의 MBTI", content: "어쩌구 저쩌구"),
-                         cellData(opened: false, title: "나의 취미", content: "어쩌구 저쩌구"),
-                         cellData(opened: false, title: "내가 좋아하는 음식", content: "어쩌구 저쩌구"),
-                         cellData(opened: false, title: "내가 좋아하는 책", content: "어쩌구 저쩌구"),
-                         cellData(opened: false, title: "내가 좋아하는 가수", content: "어쩌구 저쩌구"),
-                         cellData(opened: false, title: "내가 좋아하는 브랜드", content: "어쩌구 저쩌구"),
-                         cellData(opened: false, title: "내가 좋아하는 프로그램", content: "어쩌구 저쩌구"),
-                         cellData(opened: false, title: "내가 좋아하는 영화", content: "어쩌구 저쩌구")]
+        tableViewData = [MyInformationCellData(isOpened: false, title: "나의 발사이즈", content: "어쩌구 저쩌구"),
+                         MyInformationCellData(isOpened: false, title: "나의 MBTI", content: "어쩌구 저쩌구"),
+                         MyInformationCellData(isOpened: false, title: "나의 취미", content: "어쩌구 저쩌구"),
+                         MyInformationCellData(isOpened: false, title: "내가 좋아하는 음식", content: "어쩌구 저쩌구"),
+                         MyInformationCellData(isOpened: false, title: "내가 좋아하는 책", content: "어쩌구 저쩌구"),
+                         MyInformationCellData(isOpened: false, title: "내가 좋아하는 가수", content: "어쩌구 저쩌구"),
+                         MyInformationCellData(isOpened: false, title: "내가 좋아하는 브랜드", content: "어쩌구 저쩌구"),
+                         MyInformationCellData(isOpened: false, title: "내가 좋아하는 프로그램", content: "어쩌구 저쩌구"),
+                         MyInformationCellData(isOpened: false, title: "내가 좋아하는 영화", content: "어쩌구 저쩌구")]
     }
     
     override func setDelegate() {
@@ -248,6 +248,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
         datePicker.snp.makeConstraints {
             $0.top.equalTo(birthdayLabel.snp.bottom).offset(7)
             $0.leading.equalTo(scrollView).offset(16)
+            $0.width.equalTo(100)
         }
         
         myCharacterLabel.snp.makeConstraints {
@@ -313,7 +314,7 @@ extension FamilyInfoEditViewController: UITableViewDelegate, UITableViewDataSour
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableViewData[section].opened == true {
+        if tableViewData[section].isOpened == true {
             return 1
         } else {
             return 1
@@ -323,31 +324,24 @@ extension FamilyInfoEditViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: MyInformationCell.identifier, for: indexPath) as? MyInformationCell
         else { return UITableViewCell() }
-        cell.selectionStyle = .none
         
-        if tableViewData[indexPath.section].opened {
-            cell.contentLabel.isHidden = false
-            cell.informationLabel.text = tableViewData[indexPath.section].title
-            cell.contentLabel.text = tableViewData[indexPath.section].content
-        } else {
-            cell.informationLabel.text = tableViewData[indexPath.section].title
-            cell.contentLabel.isHidden = true
-        }
+        let data = tableViewData[indexPath.section]
+        cell.configureCell(item: data, isOpened: data.isOpened)
 
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableViewData[indexPath.section].opened == true {
-            return 100
-        } else {
-            return 42
-        }
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if tableViewData[indexPath.section].opened == true {
+//            return 100
+//        } else {
+//            return 50
+//        }
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            tableViewData[indexPath.section].opened = !tableViewData[indexPath.section].opened
+            tableViewData[indexPath.section].isOpened.toggle()
             tableView.reloadSections([indexPath.section], with: .automatic)
         }
     }

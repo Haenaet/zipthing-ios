@@ -24,24 +24,36 @@ class MyInformationCell: UITableViewCell {
     
     let informationLabel: UILabel = {
         let label = UILabel()
-//        label.text = "나의 MBTI"
         label.font = UIFont().pretendard(ofSize: 20, weight: .bold)
         
         return label
     }()
     
-    let contentLabel: UILabel = {
+    let textCountLabel: UILabel = {
         let label = UILabel()
-        label.text = "contentLabel"
+        label.text = "0/30자"
+        label.font = UIFont().pretendard(ofSize: 12, weight: .bold)
         
         return label
+    }()
+    
+    let contentTextView: UITextView = {
+        let view = UITextView()
+        view.textContainerInset = .zero
+        view.backgroundColor = .red
+        view.font = UIFont().pretendard(ofSize: 16, weight: .bold)
+
+        
+        return view
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews(informationView)
-        informationView.addSubviews(informationLabel, contentLabel)
+        informationView.addSubviews(informationLabel, contentTextView, textCountLabel)
         setLayout()
+        
+        self.selectionStyle = .none
         self.backgroundColor = .clear
     }
     
@@ -49,26 +61,71 @@ class MyInformationCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        informationView.frame = informationView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 7, right: 0))
+    func configureCell(item: MyInformationCellData, isOpened: Bool) {
+        updateLayout(isOpened: isOpened)
+        
+        if isOpened {
+            contentTextView.isHidden = false
+            textCountLabel.isHidden = false
+            informationLabel.text = item.title
+            contentTextView.text = item.content
+        } else {
+            informationLabel.text = item.title
+            contentTextView.isHidden = true
+            textCountLabel.isHidden = true
+        }
     }
     
-    func setLayout() {
+    private func setLayout() {
         informationView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().offset(-7)
         }
         
         informationLabel.snp.makeConstraints {
-//            $0.centerY.equalToSuperview()
             $0.leading.equalTo(informationView.snp.leading).offset(16)
-//            $0.top.bottom.equalToSuperview().inset(9)
             $0.top.equalTo(informationView.snp.top).offset(9)
         }
         
-        contentLabel.snp.makeConstraints {
-            $0.leading.equalTo(informationView.snp.leading).offset(16)
+        contentTextView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalTo(informationLabel.snp.bottom).offset(11)
+            $0.height.equalTo(20)
+            $0.bottom.equalTo(textCountLabel.snp.top).offset(-11)
+        }
+        
+        textCountLabel.snp.makeConstraints {
+            $0.trailing.equalTo(informationView.snp.trailing).offset(-20)
+            $0.bottom.equalTo(informationView.snp.bottom).offset(-12)
+        }
+    }
+    
+    private func updateLayout(isOpened: Bool) {
+        if isOpened {
+            informationLabel.snp.remakeConstraints {
+                $0.leading.equalTo(informationView.snp.leading).offset(16)
+                $0.top.equalToSuperview().inset(9)
+            }
+            
+            contentTextView.snp.remakeConstraints {
+                $0.leading.trailing.equalToSuperview().inset(16)
+                $0.top.equalTo(informationLabel.snp.bottom).offset(11)
+                $0.height.equalTo(20)
+                $0.bottom.equalTo(textCountLabel.snp.top).offset(-11)
+            }
+            
+            textCountLabel.snp.remakeConstraints {
+                $0.trailing.equalTo(informationView.snp.trailing).offset(-20)
+                $0.bottom.equalTo(informationView.snp.bottom).offset(-12)
+            }
+        } else {
+            informationLabel.snp.remakeConstraints {
+                $0.leading.equalTo(informationView.snp.leading).offset(16)
+                $0.top.bottom.equalToSuperview().inset(9)
+            }
+            
+            contentTextView.snp.removeConstraints()
+            textCountLabel.snp.removeConstraints()
         }
     }
 }
