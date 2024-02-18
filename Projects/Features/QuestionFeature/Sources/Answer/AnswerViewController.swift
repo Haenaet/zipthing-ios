@@ -11,7 +11,8 @@ import DesignSystem
 import IQKeyboardManagerSwift
 
 protocol AnswerViewControllerDelegate: AnyObject {
-    func updateParentView()
+    func keyboardWillShow(_ keyboardHeight: CGFloat)
+    func keyboardWillHide()
     func swipeDownGesture()
     func swipeUpGesture()
 }
@@ -215,6 +216,8 @@ final class AnswerViewController: BaseUIViewController {
         guard let keyboardFrame = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
         let keyboardHeight = keyboardFrame.cgRectValue.height
         
+        delegate?.keyboardWillShow(keyboardHeight)
+        
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
             
@@ -234,6 +237,8 @@ final class AnswerViewController: BaseUIViewController {
     }
     
     @objc private func keyboardWillHide() {
+        delegate?.keyboardWillHide()
+        
         UIView.animate(withDuration: 0.3) { [weak self] in
             guard let self = self else { return }
             self.bottomView.snp.remakeConstraints {
