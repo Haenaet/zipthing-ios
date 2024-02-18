@@ -105,6 +105,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
         let textfield = UITextField()
         textfield.placeholder = "ex. 010-1234-5678"
         textfield.borderStyle = .roundedRect
+        textfield.font = ZipthingFont.title8
         
         return textfield
     }()
@@ -160,7 +161,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
         let view = UITableView()
         view.register(MyInformationCell.self, forCellReuseIdentifier: MyInformationCell.identifier)
         view.backgroundColor = .clear
-        view.isScrollEnabled = true
+        view.isScrollEnabled = false
         view.separatorStyle = .none
         
         return view
@@ -200,7 +201,6 @@ class FamilyInfoEditViewController: BaseUIViewController {
             $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.top.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.width.equalTo(view.frame.width)
-//            $0.height.equalTo(view.frame.height)
         }
         
         cancelButton.snp.makeConstraints {
@@ -332,23 +332,10 @@ extension FamilyInfoEditViewController: UITableViewDelegate, UITableViewDataSour
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if tableViewData[indexPath.section].opened == true {
-//            return 100
-//        } else {
-//            return 50
-//        }
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 0 {
             tableViewData[indexPath.section].isOpened.toggle()
             tableView.reloadSections([indexPath.section], with: .automatic)
         }
     }
-    
-//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        return 7
-//    }
-    
 }

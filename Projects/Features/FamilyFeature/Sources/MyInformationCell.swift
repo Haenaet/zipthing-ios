@@ -16,7 +16,6 @@ class MyInformationCell: UITableViewCell {
         let view = UIView()
         view.layer.cornerRadius = 8
         view.layer.borderWidth = 1
-//        view.layer.borderColor = DesignSystemAsset.Colors.wgray900.color.cgColor
         view.layer.borderColor = UIColor.gray.cgColor
         view.backgroundColor = .white
         
@@ -55,9 +54,10 @@ class MyInformationCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubviews(informationView)
+        contentView.addSubviews(informationView)
         informationView.addSubviews(informationLabel, contentTextView, textCountLabel, arrowImageView)
         setLayout()
+        setDelegate()
         
         self.selectionStyle = .none
         self.backgroundColor = .clear
@@ -76,12 +76,17 @@ class MyInformationCell: UITableViewCell {
             informationLabel.text = item.title
             contentTextView.text = item.content
             arrowImageView.image = DesignSystemAsset.Images.arrowUp.image
+            textCountLabel.text = "\(contentTextView.text.count)/30자"
         } else {
             informationLabel.text = item.title
             contentTextView.isHidden = true
             textCountLabel.isHidden = true
             arrowImageView.image = DesignSystemAsset.Images.arrowDown.image
         }
+    }
+    
+    private func setDelegate() {
+        contentTextView.delegate = self
     }
     
     private func setLayout() {
@@ -141,5 +146,17 @@ class MyInformationCell: UITableViewCell {
             contentTextView.snp.removeConstraints()
             textCountLabel.snp.removeConstraints()
         }
+    }
+}
+
+extension MyInformationCell: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        textCountLabel.text = "\(textView.text.count)/30자"
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let textCount = textView.text.count + text.count
+        
+        return textCount <= 30
     }
 }

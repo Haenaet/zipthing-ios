@@ -16,7 +16,6 @@ class CharacterCell: UICollectionViewCell {
     let imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFill
-//        view.image = DesignSystemAsset.Images.tree.image
         
         return view
     }()
