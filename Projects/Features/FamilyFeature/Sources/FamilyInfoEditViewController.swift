@@ -167,7 +167,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
     }()
     
     override func viewDidLoad() {
-        view.backgroundColor = DesignSystemAsset.Colors.yellow050.color
+        view.backgroundColor = DesignSystemAsset.Colors.yellow01.color
         setUI()
         setLayout()
         setDelegate()
@@ -272,7 +272,7 @@ class FamilyInfoEditViewController: BaseUIViewController {
             $0.leading.trailing.equalTo(scrollView).inset(16)
             $0.top.equalTo(myInformationLabel.snp.bottom).offset(7)
             $0.bottom.equalToSuperview()
-            $0.height.equalTo(600)
+            $0.height.equalTo(500)
         }
     }
 }

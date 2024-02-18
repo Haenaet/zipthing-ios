@@ -41,9 +41,14 @@ class MyInformationCell: UITableViewCell {
     let contentTextView: UITextView = {
         let view = UITextView()
         view.textContainerInset = .zero
-        view.backgroundColor = .red
         view.font = ZipthingFont.body6
 
+        return view
+    }()
+    
+    let arrowImageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
         
         return view
     }()
@@ -51,7 +56,7 @@ class MyInformationCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews(informationView)
-        informationView.addSubviews(informationLabel, contentTextView, textCountLabel)
+        informationView.addSubviews(informationLabel, contentTextView, textCountLabel, arrowImageView)
         setLayout()
         
         self.selectionStyle = .none
@@ -70,10 +75,12 @@ class MyInformationCell: UITableViewCell {
             textCountLabel.isHidden = false
             informationLabel.text = item.title
             contentTextView.text = item.content
+            arrowImageView.image = DesignSystemAsset.Images.arrowUp.image
         } else {
             informationLabel.text = item.title
             contentTextView.isHidden = true
             textCountLabel.isHidden = true
+            arrowImageView.image = DesignSystemAsset.Images.arrowDown.image
         }
     }
     
@@ -98,6 +105,12 @@ class MyInformationCell: UITableViewCell {
         textCountLabel.snp.makeConstraints {
             $0.trailing.equalTo(informationView.snp.trailing).offset(-20)
             $0.bottom.equalTo(informationView.snp.bottom).offset(-12)
+        }
+        
+        arrowImageView.snp.makeConstraints {
+            $0.trailing.equalTo(informationView.snp.trailing).offset(-20)
+            $0.top.equalTo(informationView.snp.top).offset(12)
+            $0.width.height.equalTo(18)
         }
     }
     
