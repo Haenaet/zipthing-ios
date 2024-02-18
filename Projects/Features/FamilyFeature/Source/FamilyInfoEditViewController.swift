@@ -36,11 +36,19 @@ public enum CharaterType: CaseIterable {
     }
 }
 
+struct cellData {
+    var opened = Bool() // 셀이 접혔는지 펴졌는지 확인하기 위한 변수
+    var title = String()
+    var content = String()
+}
+
 class FamilyInfoEditViewController: BaseUIViewController {
 
 //    var stringCharacters: [String] = ["tree", "egg", "fish", "star", "sun", "tomato"]
     
     var characters = CharaterType.allCases
+    
+    var tableViewData = [cellData]()
     
     private lazy var cancelButton: UIButton = {
         let button = UIButton(type: .system)
@@ -135,7 +143,6 @@ class FamilyInfoEditViewController: BaseUIViewController {
     private var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         
-        
         return scrollView
     }()
     
@@ -148,21 +155,43 @@ class FamilyInfoEditViewController: BaseUIViewController {
         return view
     }()
     
+    private lazy var tableView: UITableView = {
+        let view = UITableView()
+        view.register(MyInformationCell.self, forCellReuseIdentifier: MyInformationCell.identifier)
+        view.backgroundColor = .clear
+        view.isScrollEnabled = true
+        view.separatorStyle = .none
+        
+        return view
+    }()
+    
     override func viewDidLoad() {
         view.backgroundColor = DesignSystemAsset.Colors.yellow050.color
         setUI()
         setLayout()
         setDelegate()
+        
+        tableViewData = [cellData(opened: false, title: "나의 발사이즈", content: "어쩌구 저쩌구"),
+                         cellData(opened: false, title: "나의 MBTI", content: "어쩌구 저쩌구"),
+                         cellData(opened: false, title: "나의 취미", content: "어쩌구 저쩌구"),
+                         cellData(opened: false, title: "내가 좋아하는 음식", content: "어쩌구 저쩌구"),
+                         cellData(opened: false, title: "내가 좋아하는 책", content: "어쩌구 저쩌구"),
+                         cellData(opened: false, title: "내가 좋아하는 가수", content: "어쩌구 저쩌구"),
+                         cellData(opened: false, title: "내가 좋아하는 브랜드", content: "어쩌구 저쩌구"),
+                         cellData(opened: false, title: "내가 좋아하는 프로그램", content: "어쩌구 저쩌구"),
+                         cellData(opened: false, title: "내가 좋아하는 영화", content: "어쩌구 저쩌구")]
     }
     
     override func setDelegate() {
         collectionView.delegate = self
         collectionView.dataSource = self
+        tableView.dataSource = self
+        tableView.delegate = self
     }
-    
+        
     override func setUI() {
         view.addSubview(scrollView)
-        scrollView.addSubviews(cancelButton, editButton, titleLabel, nicknameLabel, nicknameTextField, phoneNumberLabel, phoneNumberTextField, birthdayLabel, datePicker, myCharacterLabel, collectionView, myInformationLabel)
+        scrollView.addSubviews(cancelButton, editButton, titleLabel, nicknameLabel, nicknameTextField, phoneNumberLabel, phoneNumberTextField, birthdayLabel, datePicker, myCharacterLabel, collectionView, myInformationLabel, tableView)
     }
     
     override func setLayout() {
@@ -174,67 +203,74 @@ class FamilyInfoEditViewController: BaseUIViewController {
         }
         
         cancelButton.snp.makeConstraints {
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(22)
+            $0.leading.equalTo(scrollView).offset(16)
+            $0.top.equalTo(scrollView).offset(22)
         }
         
         editButton.snp.makeConstraints {
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-16)
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(22)
+            $0.trailing.equalTo(scrollView).offset(-16)
+            $0.top.equalTo(scrollView).offset(22)
         }
         
         titleLabel.snp.makeConstraints {
             $0.leading.equalTo(cancelButton.snp.trailing).offset(117)
             $0.trailing.equalTo(editButton.snp.leading).offset(-117)
-            $0.top.equalTo(view.safeAreaLayoutGuide).offset(22)
+            $0.top.equalTo(scrollView).offset(22)
         }
         
         nicknameLabel.snp.makeConstraints {
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            $0.leading.equalTo(scrollView).offset(16)
             $0.top.equalTo(cancelButton.snp.bottom).offset(31)
         }
         
         nicknameTextField.snp.makeConstraints {
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.leading.trailing.equalTo(scrollView).inset(16)
             $0.top.equalTo(nicknameLabel.snp.bottom).offset(7)
             $0.height.equalTo(50)
         }
         
         phoneNumberLabel.snp.makeConstraints {
             $0.top.equalTo(nicknameTextField.snp.bottom).offset(28)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            $0.leading.equalTo(scrollView).offset(16)
         }
         
         phoneNumberTextField.snp.makeConstraints {
             $0.top.equalTo(phoneNumberLabel.snp.bottom).offset(7)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.leading.trailing.equalTo(scrollView).inset(16)
             $0.height.equalTo(50)
         }
         
         birthdayLabel.snp.makeConstraints {
             $0.top.equalTo(phoneNumberTextField.snp.bottom).offset(28)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            $0.leading.equalTo(scrollView).offset(16)
         }
         
         datePicker.snp.makeConstraints {
             $0.top.equalTo(birthdayLabel.snp.bottom).offset(7)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            $0.leading.equalTo(scrollView).offset(16)
         }
         
         myCharacterLabel.snp.makeConstraints {
             $0.top.equalTo(datePicker.snp.bottom).offset(28)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            $0.leading.equalTo(scrollView).offset(16)
         }
         
         collectionView.snp.makeConstraints {
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide).inset(16)
+            $0.leading.trailing.equalTo(scrollView).inset(16)
             $0.top.equalTo(myCharacterLabel.snp.bottom).offset(7)
             $0.height.equalTo(50)
         }
         
         myInformationLabel.snp.makeConstraints {
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(16)
+            $0.leading.equalTo(scrollView).offset(16)
             $0.top.equalTo(collectionView.snp.bottom).offset(28)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.leading.trailing.equalTo(scrollView).inset(16)
+            $0.top.equalTo(myInformationLabel.snp.bottom).offset(7)
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(600)
         }
     }
 }
@@ -269,4 +305,55 @@ extension FamilyInfoEditViewController {
         
         return layout
     }
+}
+
+extension FamilyInfoEditViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return tableViewData.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableViewData[section].opened == true {
+            return 1
+        } else {
+            return 1
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: MyInformationCell.identifier, for: indexPath) as? MyInformationCell
+        else { return UITableViewCell() }
+        cell.selectionStyle = .none
+        
+        if tableViewData[indexPath.section].opened {
+            cell.contentLabel.isHidden = false
+            cell.informationLabel.text = tableViewData[indexPath.section].title
+            cell.contentLabel.text = tableViewData[indexPath.section].content
+        } else {
+            cell.informationLabel.text = tableViewData[indexPath.section].title
+            cell.contentLabel.isHidden = true
+        }
+
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableViewData[indexPath.section].opened == true {
+            return 100
+        } else {
+            return 42
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            tableViewData[indexPath.section].opened = !tableViewData[indexPath.section].opened
+            tableView.reloadSections([indexPath.section], with: .automatic)
+        }
+    }
+    
+//    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        return 7
+//    }
+    
 }
