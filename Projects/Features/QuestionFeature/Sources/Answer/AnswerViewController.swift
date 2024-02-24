@@ -18,7 +18,6 @@ protocol AnswerViewControllerDelegate: AnyObject {
 }
 
 public final class AnswerViewController: BaseUIViewController {
-    
     weak var delegate: AnswerViewControllerDelegate?
     private var answerList: [String] = ["1"]
     
@@ -36,7 +35,7 @@ public final class AnswerViewController: BaseUIViewController {
     
     private let grabBarView: UIView = {
         let view = UIView()
-        view.backgroundColor = .black
+        view.backgroundColor = DesignSystemAsset.black.color
         return view
     }()
     
@@ -48,9 +47,9 @@ public final class AnswerViewController: BaseUIViewController {
     
     private let keyboardTextField: UITextField = {
         let tx = UITextField()
-        tx.backgroundColor = .white
+        tx.backgroundColor = DesignSystemAsset.white.color
         tx.placeholder = "답변을 입력해주세요."
-        tx.layer.borderColor = UIColor.black.cgColor
+        tx.layer.borderColor = DesignSystemAsset.black.color.cgColor
         tx.layer.borderWidth = 2
         tx.layer.cornerRadius = 24
         let padding = UIView(frame: CGRect(x: 0, y: 0, width: 23, height: 0))
@@ -79,7 +78,7 @@ public final class AnswerViewController: BaseUIViewController {
     public override func setUI() {
         view.backgroundColor = DesignSystemAsset.wgray03.color
         view.layer.cornerRadius = 12
-        view.layer.borderColor = UIColor.black.cgColor
+        view.layer.borderColor = DesignSystemAsset.black.color.cgColor
         view.layer.borderWidth = 2
         view.isUserInteractionEnabled = true
         createTableHeaderView()

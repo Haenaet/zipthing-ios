@@ -10,7 +10,6 @@ import UIKit
 import DesignSystem
 
 public final class QuestionViewController: BaseUIViewController {
-    
     // MARK: - Components
     
     private let childViewController = AnswerViewController()
@@ -31,7 +30,7 @@ public final class QuestionViewController: BaseUIViewController {
         configuration.title = "지난 질문"
         configuration.attributedTitle?.font = ZipthingFont.subTitle4
         let button = UIButton(configuration: configuration)
-        button.backgroundColor = .black
+        button.backgroundColor = DesignSystemAsset.black.color
         button.tintColor = .white
         button.layer.cornerRadius = 22
         return button
@@ -220,6 +219,7 @@ extension QuestionViewController: AnswerViewControllerDelegate {
             self.childViewController.view.snp.updateConstraints {
                 $0.height.equalTo(594)
             }
+            
             self.view.layoutIfNeeded()
         }
     }

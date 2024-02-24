@@ -14,7 +14,7 @@ final class AnswerTableHeaderView: UIView {
         let label = UILabel()
         label.font = ZipthingFont.title6
         label.text = "답변"
-        label.textColor = .black
+        label.textColor = DesignSystemAsset.black.color
         return label
     }()
     
@@ -32,8 +32,8 @@ final class AnswerTableHeaderView: UIView {
         configuration.title = "최신순"
         configuration.attributedTitle?.font = ZipthingFont.subTitle4
         let button = UIButton(configuration: configuration)
-        button.backgroundColor = .black
-        button.tintColor = .white
+        button.backgroundColor = DesignSystemAsset.black.color
+        button.tintColor = DesignSystemAsset.white.color
         button.layer.cornerRadius = 4
         return button
     }()
@@ -43,8 +43,8 @@ final class AnswerTableHeaderView: UIView {
         configuration.title = "시간순"
         configuration.attributedTitle?.font = ZipthingFont.subTitle4
         let button = UIButton(configuration: configuration)
-        button.backgroundColor = .gray
-        button.tintColor = .white
+        button.backgroundColor = DesignSystemAsset.wgray07.color
+        button.tintColor = DesignSystemAsset.white.color
         button.layer.cornerRadius = 4
         return button
     }()

@@ -10,7 +10,6 @@ import UIKit
 import DesignSystem
 
 final class EmptyAnswerView: UIView {
-    
     // MARK: - Components
     
     private let emptyImageView: UIImageView = {

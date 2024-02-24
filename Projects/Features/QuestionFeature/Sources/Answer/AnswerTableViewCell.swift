@@ -10,12 +10,11 @@ import UIKit
 import DesignSystem
 
 final class AnswerTableViewCell: BaseUITableViewCell<String> {
-    
     private let userImageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(systemName: "person")
         iv.tintColor = .gray
-        iv.layer.borderColor = UIColor.black.cgColor
+        iv.layer.borderColor = DesignSystemAsset.black.color.cgColor
         iv.layer.borderWidth = 1
         iv.layer.cornerRadius = 15
         iv.clipsToBounds = true
@@ -24,22 +23,22 @@ final class AnswerTableViewCell: BaseUITableViewCell<String> {
     
     private let userNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
+        label.font = ZipthingFont.subTitle4
         label.text = "나는 아빠"
         return label
     }()
     
     private let writingTimeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.font = ZipthingFont.caption4
         label.text = "30분 전"
-        label.textColor = .lightGray
+        label.textColor = DesignSystemAsset.wgray07.color
         return label
     }()
     
     private let contentLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 22, weight: .light)
+        label.font = ZipthingFont.body2
         label.text = "나는 찍먹이지요~"
         return label
     }()
@@ -56,8 +55,8 @@ final class AnswerTableViewCell: BaseUITableViewCell<String> {
     override func setUI() {
         self.backgroundColor = .clear
         self.selectionStyle = .none
-        contentView.backgroundColor = .white
-        contentView.layer.borderColor = UIColor.black.cgColor
+        contentView.backgroundColor = DesignSystemAsset.white.color
+        contentView.layer.borderColor = DesignSystemAsset.black.color.cgColor
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 5
     }
